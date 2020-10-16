@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TAMagic</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="common.js"></script>
+    <script src="thermalEdit.js"></script>
+    <script src="thermalAssist.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="root">
+        <div class="flexrow">
+            <div class="quarter" id="taCtnr">
+                <div class="canvasTitleBox">
+                    Thermal Assist
+                </div>
+                <canvas class="quarter" id="taCanvas"></canvas>
+                <div class="canvasSettings" id="taCtnrSettings">
+                    <label>Fix to glider <input type="checkbox" id="cbFixViewToGlider"></label>
+                </div>
+                <div class="canvasSettings" id="thermalAssistGaugeBox">
+                    <div class="gaugeBox">
+                        v<sub>v</sub> <span class="varioGauge" id="varioCurrentGauge">0.0</span> m/s
+                    </div>
+                    <div class="gaugeBox">
+                        v<sub>v</sub><sup>avg</sup> <span class="varioGauge" id="varioAverageGauge">0.0</span> m/s
+                    </div>
+                    <br>
+                    <div class="gaugeBox">
+                        Alt <span class="varioGauge" id="altitudeGainedGauge">0.0</span> m
+                    </div>
+                </div>
+            </div>
+            <div class="quarter" id="controlCtnr">
+                <div class="canvasTitleBox">
+                    Controls
+                </div>
+                <div class="slideContainer" id="vContainer">
+                    v = <span class="sliderValueDisplay vValueDisplay" id="vValueDisplay">0.0</span> y/s
+                    <input type="range" min="0" max="0.11" value="0.1" step="0.005" class="slider" id="vSlider" oninput="updateV()", onchange="updateV()">
+                </div>
+                <div class="slideContainer" id="oContainer">
+                    &#969; = <span class="sliderValueDisplay oValueDisplay" id="oValueDisplay">0.0</span> rad/s
+                    <input type="range" min="-1.0" max="1.0" value="0.3" step="0.01" class="slider" id="oSlider" oninput="updateO()", onchange="updateO()">
+                </div>
+                <div class="slideContainer">
+                    <button type="button" onclick="resetGliderPos()">Reset pos</button>
+                    <button type="button" onclick="resetGliderVel()">Reset vel</button>
+                    <button type="button" onclick="resetGliderAll()">Reset all</button>
+                </div>
+                <hr>
+                <div class="slideContainer" id="keyOContainer">
+                    Key &#969; = <span class="sliderValueDisplay keyOValueDisplay" id="keyOValueDisplay">0.0</span> rad/s
+                    <input type="range" min="-1.0" max="1.0" value="0.3" step="0.01" class="slider" id="keyOSlider" oninput="updateKeyO()", onchange="updateKeyO()">
+                </div>
+            </div>
+            <div class="quarter" id="thermalCtnr">
+                <div class="canvasTitleBox">
+                    Thermal X-section
+                </div>
+                <canvas class="quarter" id="thermalCanvas"></canvas>
+                <div class="canvasSettings" id="thermalCtnrSettings">
+                    <label>Show vario <input type="checkbox" id="cbShowThermalPointsVY" checked></label>
+                    <label>Show glider <input type="checkbox" id="cbShowGliderInThermal"></label>
+                    <label>Edit points <input type="checkbox" id="cbEnableThermalPointsEdit"></label>
+                </div>
+                <div id="thermalPointEditor">
+                    <input type="range" min="-3.0" max="5.0" value="0.0" step="0.01" class="slider" id="thermalEditSlider" oninput="updateThermalPoint()", onchange="updateThermalPoint()">
+                </div>
+            </div>
+            <div class="quarter" id="lofaszCtnr">
+                <div class="canvasTitleBox">
+                    Settings
+                </div>
+                <br><br><br>
+                <span class="settingsGroupTitle">Thermal assist</span>
+                <div class="slideContainer" id="dotIntContainer">
+                    &#9679; interval = <span class="sliderValueDisplay dotIntValueDisplay" id="dotIntValueDisplay">0</span> ms
+                    <input type="range" min="200" max="3000" value="1000" step="100" class="slider" id="dotIntSlider" oninput="updateDotInt()", onchange="updateDotInt()">
+                </div>
+                <div class="slideContainer" id="dotCntContainer">
+                    &#9679; cnt = <span class="sliderValueDisplay dotCntValueDisplay" id="dotCntValueDisplay">0</span>
+                    <input type="range" min="0" max="100" value="20" step="1" class="slider" id="dotCntSlider" oninput="updateDotCnt()", onchange="updateDotCnt()">
+                </div>
+                <div class="slideContainer">
+                    <button type="button" onclick="clearDots()">Clear &#9679;s</button>
+                </div>
+                <div class="slideContainer" id="varioAvgTimeContainer">
+                    Vario avg time = <span class="sliderValueDisplay varioAvgTimeValueDisplay" id="varioAvgTimeValueDisplay">0</span> ms
+                    <input type="range" min="1000" max="30000" value="3000" step="1000" class="slider" id="varioAvgTimeSlider" oninput="updateVarioAvgTime()", onchange="updateVarioAvgTime()">
+                </div>
+                <hr>
+                <span class="settingsGroupTitle">Thermal interpolation</span>
+                <div class="slideContainer" id="lContainer">
+                    L = <span class="sliderValueDisplay lValueDisplay" id="lValueDisplay">0.2</span>
+                    <input type="range" min="0" max="1" value="0.2" step="0.01" class="slider" id="lSlider" oninput="updateL()", onchange="updateL()">
+                </div>
+                <div class="slideContainer" id="cContainer">
+                    C = <span class="sliderValueDisplay cValueDisplay" id="cValueDisplay">0.25</span>
+                    <input type="range" min="0.2" max="1" value="1" step="0.01" class="slider" id="cSlider" oninput="updateC()", onchange="updateL()">
+                </div>
+                <div class="slideContainer">
+                    L<sup>2</sup>C = <span class="l2cValueDisplay">0.0</span>
+                </div>
+                <!--<canvas class="quarter" id="lofaszCanvas"></canvas>-->
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

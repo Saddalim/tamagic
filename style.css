@@ -1,0 +1,224 @@
+@charset "UTF-8";
+
+*
+{
+	font-family: Tahoma, sans-serif;
+}
+
+html, body
+{
+    padding: 0;
+    margin: 0;
+    border: 0;
+    height: 100%;
+}
+
+div.root {
+	/*display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;*/
+	height: 100%;
+    width: 100%;
+}
+
+div.flexrow
+{
+    height: 100%;
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    /*flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;*/
+}
+
+div.quarter
+{
+    width: 50%;
+    height: 50%;
+    flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+canvas.quarter
+{
+    width: 100%;
+    height: 100%;
+}
+
+div#taCtnr
+{
+    background: #fff;
+}
+
+div#controlCtnr
+{
+    background: #cfc;
+}
+
+div#thermalCtnr
+{
+    background: #ccf;
+}
+
+div#lofaszCtnr
+{
+    background: #ffc;
+}
+
+.sliderValueDisplay
+{
+    width: 60px;
+}
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+
+    appearance: none;
+
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+input.slider
+{
+    width: 100%; /* Full-width */
+    height: 25px; /* Specified height */
+    margin: 0;
+}
+
+span.settingsGroupTitle
+{
+    margin: 2px 2px 2px 8px;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+div.canvasTitleBox
+{
+    background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    font-size: 18px;
+
+    padding: 4px;
+
+}
+
+div#taCtnr div.canvasTitleBox
+{
+    bottom: 5px;
+    right: 5px;
+    color: #000;
+}
+
+div#controlCtnr div.canvasTitleBox
+{
+    bottom: 5px;
+    left: 5px;
+    color: #000;
+}
+
+div#thermalCtnr div.canvasTitleBox
+{
+    top: 5px;
+    right: 5px;
+    color: #fff;
+}
+
+div#lofaszCtnr div.canvasTitleBox
+{
+    top: 5px;
+    left: 5px;
+    color: #000;
+}
+
+.slideContainer
+{
+    margin: 10px 26px 4px 26px;
+}
+
+div#thermalPointEditor
+{
+    display: none;
+}
+
+div.canvasSettings
+{
+    background: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    padding: 4px;
+}
+
+div#taCtnrSettings
+{
+    bottom: 5px;
+    left: 5px;
+    color: #333;
+}
+
+div#thermalCtnrSettings
+{
+    bottom: 5px;
+    left: 5px;
+    color: #ccc;
+}
+
+div#thermalPointEditor
+{
+    background: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    padding: 4px;
+    color: #ccc;
+}
+
+div#thermalAssistGaugeBox
+{
+    background: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    text-align: right;
+    font-weight: bold;
+    font-size: 16px;
+    vertical-align: middle;
+
+}
+
+div#thermalAssistGaugeBox .gaugeBox
+{
+    width: 140px;
+    display: inline-block;
+}
+
+div#thermalAssistGaugeBox .varioGauge
+{
+    font-size: 26px;
+    color: #fff;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+}
+
+div#thermalAssistGaugeBox .varioGauge.sinking
+{
+    color: #f66;
+}
+
+div#thermalAssistGaugeBox .varioGauge.rising
+{
+    color: #6f6;
+}
